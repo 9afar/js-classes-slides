@@ -1,0 +1,661 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HTML 5</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+    <link rel="stylesheet" href="css/prism.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <img src="img/logo.png" style="margin-bottom:30px;" />
+                <h1>HTML 5</h1>
+                <h3>JavaScript</h3>
+                <p>
+                    <small>
+                        BY
+                        <br />
+                        Mohammed Alsaffar
+                        <br />
+                        <a href="mailto:m.9afar@gmail.com">m.9afar@gmail</a>
+                        <br />
+                        <a href="https://twitter.com/9afar">@9afar</a> on Twitter
+                    </small>
+                </p>
+            </section>
+            <section>
+                <h2>Table Of Contents</h2>
+                <br />
+                <ul>
+                    <li><a href="#/Objects">Objects</a></li>
+                    <li><a href="#/Functions">Functions</a></li>
+                    <li><a href="#/Classes">Classes</a></li>
+                    <li><a href="#/thisk">This Keyword</a></li>
+                    <li><a href="#/Static">Static Variables</a></li>
+                    <li><a href="#/Inheritance">Inheritance</a></li>
+                    <li><a href="#/Homework">Homework</a></li>
+                </ul>
+            </section>
+            <section id="Objects">
+                <section>
+                    <h2>Objects</h2>
+                    <h3>1 - Everything is an object</h3>
+                    <p>
+                        In JavaScript everything is an object except for <code class="language-javascript">null</code> and <code class="language-javascript">undefined</code>
+                    </p>
+
+                    <pre><code class="language-javascript">
+						false.toString(); // 'false'
+						[1, 2, 3].toString(); // '1,2,3'
+						function Foo(){}
+						Foo.bar = 1;
+						Foo.bar; // 1
+					</code></pre>
+                </section>
+                <section>
+                    <h2>Objects</h2>
+                    <h3>2 - Objects as a Data Type</h3>
+                    <p>
+                        Using an object literal - {} notation - it is possible to create a plain object. This new object inherits from <code class="language-javascript">Object.prototype</code>
+                    </p>
+
+                    <pre><code class="language-javascript">
+						var foo = {}; // a new empty object
+						// a new object with a 'test' property with value 12
+						var bar = {test: 12}; 
+					</code></pre>
+                </section>
+                <section>
+                    <h2>Objects</h2>
+                    <h3>3 - Accessing Properties</h3>
+                    <p>
+                        The properties of an object can be accessed in two ways, via either the dot notation or the square bracket notation.
+                    </p>
+
+                    <pre><code class="language-javascript">
+						var foo = {msg: 'hello'}
+						foo.msg; // hello
+						foo['msg']; // hello
+						var VarName = 'msg';
+						foo[VarName]; // hello
+						foo.1234; // SyntaxError
+						foo['1234']; // works
+					</code></pre>
+                </section>
+                <section>
+                    <h2>Objects</h2>
+                    <h3>4 - Notation of Keys</h3>
+                    <pre><code class="language-javascript">
+    var test = {
+        myKey: 'I am a key',
+        'case': 'I am a keyword, so I must be notated as a string',
+        delete: 'I am a keyword, so me too' // raises SyntaxError
+    };
+                        
+    test.myKey; // I am a key
+    test.case;  // I am a keyword, so I must be notated as a string
+    </code></pre>
+                </section>
+            </section>
+            <section id="Functions">
+                <section>
+                    <h2>Functions</h2>
+                    <h3>1 - Declaration</h3>
+                    <pre><code class="language-javascript">
+					foo(); // Works because foo was created before this code runs
+					function foo() {}
+				</code></pre>
+                    <p>
+                        The above function gets hoisted before the execution of the program starts; thus, it is available everywhere in the scope it was defined, even if called before the actual definition in the source.
+                    </p>
+                </section>
+                <section>
+                    <h2>Functions</h2>
+                    <h3>2 - The function Expression</h3>
+                    <pre><code class="language-javascript">
+					var foo = function() {};
+				</code></pre>
+                    <p>
+                        This example assigns the unnamed and anonymous function to the variable foo.
+                    </p>
+                    <pre><code class="language-javascript">
+					foo; // 'undefined'
+					foo(); // this raises a TypeError
+					var foo = function() {};
+				</code></pre>
+                    <p>
+                        since assignments only happen at runtime, the value of foo will default to undefined before the corresponding code is executed.
+                    </p>
+                </section>
+                <section>
+                    <h2>Functions</h2>
+                    <h3>Example 1</h3>
+                    <pre><code class="language-javascript">
+    $(function(){
+        // on load code here
+    });
+    </code></pre>
+                    <p>
+                        This is an example of an <u>anonymous function</u>
+                    </p>
+                </section>
+                <section>
+                    <h2>Functions</h2>
+                    <h3>Example 2</h3>
+                    <div>
+                        <span>Result = </span><span id="divideValue"></span>
+                    </div>
+                    <script id="example2script"></script>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#example2script">
+    function divide(n1 , n2 , onSuccess , onError){
+        try{
+            if (n2 == 0) throw "Can not divide by zero";
+            var result = n1 / n2;
+            onSuccess(result);
+        }catch(err){
+            console.log(err);
+            onError(err);
+        }
+    }
+    
+    divide( 1 , 2 ,
+        function(result){
+            $('#divideValue').css('background','green');
+            $('#divideValue').text(result);
+        } , 
+        function(errorMsg){
+            $('#divideValue').css('background','red');
+            $('#divideValue').text(errorMsg);
+        }
+    );
+    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Functions</h2>
+                    <h3>Example 3</h3>
+                    <pre><code class="language-javascript">
+    (function(){
+        // function calling it self
+        alert("Hi, I just called my self!!");
+    })();
+    </code></pre>
+
+                    <pre><code class="language-javascript">
+    (// evaluate the function inside the parentheses
+      function(){
+        // function calling it self
+        alert("Hi, I just called my self!!");
+      } // and return the function object
+    )
+    ();// call the result of the evaluation
+    </code></pre>
+                </section>
+            </section>
+            <!-- End Functions -->
+
+            <section id="Classes">
+                <section>
+                    <h2>Classes</h2>
+                    <h3>1 - Using object literals</h3>
+
+                    <pre><code contenteditable spellcheck="false" class="language-javascript">
+    var apple = {
+        type: "macintosh",
+        color: "red",
+        getInfo: function () {
+            return this.color + ' ' + this.type + ' apple';
+        }
+    }
+                    </code></pre>
+                    <p>
+                        In this case you don't need to (and cannot) create an instance of the class, it already exists. So you simply start using this instance.
+                    </p>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript">
+    apple.color = "reddish";
+    alert(apple.getInfo());
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Classes</h2>
+                    <h3>2 - Using a function</h3>
+                    <p>
+                        This is probably one of the most common ways. You define a normal JavaScript function and then create an object by using the <code class="language-javascript">new</code> keyword.
+                        <br><br>
+                        To define properties and methods for an object created using <code class="language-javascript">function()</code> you use the <code class="language-javascript">this</code> keyword, as seen in the following example.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Classes</h2>
+                    <h3>2 - Using a function</h3>
+                    <h4>Example</h4>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript">
+    function Apple (type) {
+        this.type = type;
+        this.color = "red";
+        // anti-pattern! ( this is wrong ) keep reading...
+        this.getInfo = getAppleInfo;
+    }
+ 
+    function getAppleInfo() {
+        return this.color + ' ' + this.type + ' apple';
+    }
+    
+    var apple = new Apple('Red');
+    apple.color = "#ff0000";
+    alert(apple.getInfo());
+    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Classes</h2>
+                    <h3>3 - The Prototype</h3>
+
+                    <p>
+                        JavaScript does not feature a classical inheritance model; instead, it uses a prototypal one.
+                    </p>
+                    <br />
+                    <p>
+                        Class methods should be defined inside the class prototype
+                    </p>
+
+                    <pre><code contenteditable spellcheck="false" class="language-javascript">
+    function Apple (type) {
+        this.type = type;
+        this.color = "red";
+    }
+                         
+    // Instance method will be available to all instances but only load once in memory 
+    Apple.prototype.getInfo = function() {
+        return this.color + ' ' + this.type + ' apple';
+    };
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Classes</h2>
+                    <h3>Example 1</h3>
+                    <div id="GreeterMsg"></div>
+                    <div>
+                        <script id="GreeterCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#GreeterCont">
+    function Greeter(message) {
+        this.greeting = message;
+        Greeter.prototype.greet = function () {
+            return "Hello, " + this.greeting;
+        };
+    }
+                         
+    var greeter = new Greeter("GCE");
+    $("#GreeterMsg").text(greeter.greet());
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Classes</h2>
+                    <h3>Example 2</h3>
+                    <div id="GreeterMsg2"></div>
+                    <div>
+                        <script id="GreeterCont2"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#GreeterCont2">
+    var Greeter = (function(){
+                         
+        function Greeter(message) {
+            this.greeting = message;
+        }
+                         
+        Greeter.prototype.greet = function () {
+            return "Hello, " + this.greeting;
+        };
+                         
+        return Greeter;
+    })();
+                         
+    var greeter = new Greeter("GCE");
+    $("#GreeterMsg2").text(greeter.greet());
+                    </code></pre>
+                </section>
+            </section>
+            <!-- End Classes -->
+
+            <section id="thisk">
+                <section>
+                    <h2>This keyword</h2>
+                    <h3>The Global Scope</h3>
+                    This = <span id="ThisGSResult"></span>
+                    <div>
+                        <script id="ThisGSCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#ThisGSCont">
+    $("#ThisGSResult").text(this.constructor.name);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>This keyword</h2>
+                    <h3>Calling a Function</h3>
+                    This = <span id="ThisFResult"></span>
+                    <div>
+                        <script id="ThisFCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#ThisFCont">
+    function Test(){
+        $("#ThisFResult").text(this.constructor.name);                    
+    }
+     
+    Test();
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>This keyword</h2>
+                    <h3>Calling a Constructor</h3>
+                    This = <span id="ThisCResult"></span>
+                    <div>
+                        <script id="ThisCCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#ThisCCont">
+    function Test(){
+        $("#ThisCResult").text(this.constructor.name);                    
+    }
+     
+    new Test();
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>This keyword</h2>
+                    <h3>Inside Class</h3>
+                    This = <span id="ThisICResult"></span>
+                    <div>
+                        <script id="ThisICCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#ThisICCont">
+    var MyClass = (function(){
+        function MyClass() {}
+                         
+        MyClass.prototype.Test = function () {
+            $("#ThisICResult").text(this.constructor.name);
+        };
+                         
+        return MyClass;
+    })();
+                         
+    var myClass = new MyClass();
+    myClass.Test();
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>This keyword</h2>
+                    <h3>Common Pitfalls</h3>
+                    <span id="clickme" style="cursor:pointer">Click Me....</span>
+                    <div>
+                        <script id="ThisCPCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#ThisCPCont">
+    var MyClass = (function(){
+                         
+        function MyClass() { 
+            $("#clickme").click(this.msg);
+            //$("#clickme").click(this.msg.bind(this));
+        }
+                         
+        MyClass.prototype.msg = function () {
+            $("#clickme").text("Hello from " + this.constructor.name);
+        };
+                         
+        return MyClass;
+    })();
+                         
+    var myClass = new MyClass();
+                    </code></pre>
+                </section>
+
+            </section>
+            <!-- End This keyword -->
+
+            <section id="Static">
+                <section>
+                    <h2>Static Variables</h2>
+                    <h3>Example</h3>
+                    Counter Result = <span id="CounterResult"></span>
+                    <div>
+                        <script id="CounterCont"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#CounterCont">
+    var Counter = (function(){
+         
+        Counter.Current = 0; // Static Variable
+                                                                                                          
+        function Counter() {
+            this.Current = 0; // Public Variable                
+        }
+                         
+        Counter.prototype.Count = function () {
+            Counter.Current++;
+            this.Current++;
+        };
+                         
+        return Counter;
+    })();
+                         
+    var counter1 = new Counter();
+    var counter2 = new Counter();
+                         
+    counter1.Count();
+    counter1.Count();
+    counter2.Count();
+                         
+    $("#CounterResult").text(Counter.Current);
+                    </code></pre>
+                </section>
+            </section>
+            <!-- End Static Variables -->
+
+            <section id="Inheritance">
+                <section>
+                    <h2>Inheritance</h2>
+                    <h3>extends function</h3>
+                    <p>
+                        Inheritance in javascript is done by adding to the prototype chain and copying property definitions
+                        <br /><br />
+                        Using this function
+                    </p>
+                    <pre><code class="language-javascript">
+    var __extends = this.__extends || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        __.prototype = b.prototype;
+        d.prototype = new __();
+    };
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Inheritance</h2>
+                    <h3>Example</h3>
+                    <div>
+                        <script id="InheritanceScript"></script>
+                    </div>
+                    <button onclick="TestAnimals()" style="font-size:22px;">Run</button>
+                    <script>
+                        var __extends = this.__extends || function (d, b) {
+                            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+                            function __() { this.constructor = d; }
+                            __.prototype = b.prototype;
+                            d.prototype = new __();
+                        };
+                    </script>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#InheritanceScript">
+    var __extends = this.__extends || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        __.prototype = b.prototype;
+        d.prototype = new __();
+    };
+    
+    var Animal = (function () {
+                         
+        function Animal(name) {
+            this.name = name;
+        }
+                         
+        Animal.prototype.move = function (meters) {
+            alert(this.name + " the " + this.constructor.name +" moved " + meters);
+        };
+                         
+        return Animal;
+    })();
+                         
+    var Snake = (function () {
+                         
+        var _super = Animal;
+        __extends(Snake, _super);
+                         
+        function Snake(name) {
+            _super.call(this, name);
+        }
+                         
+        Snake.prototype.move = function () {
+            _super.prototype.move.call(this, 5);
+        };
+                         
+        return Snake;
+    })();
+ 
+    var Horse = (function () {
+                         
+        var _super = Animal;
+        __extends(Horse, _super);
+                         
+        function Horse(name) {
+            _super.call(this, name);
+        }
+                         
+        Horse.prototype.move = function () {
+            _super.prototype.move.call(this, 45);
+        };
+                         
+        return Horse;
+    })();
+    
+    function TestAnimals(){   
+        var sam = new Snake("Sam");
+        var tom = new Horse("Tom");
+        sam.move();
+        tom.move();
+    }
+                    </code></pre>
+                </section>
+            </section>
+            <!-- End Inheritance -->
+
+            <section id="Homework">
+                <section>
+                    <h2>Homework 1</h2>
+                    <div style="text-align:left;width:400px;margin:0 auto;">
+                        Name : <input type="text" id="HWName" style="height: 28px;vertical-align: middle">
+                        <br />
+                        Birthdate : <input type="date" id="HWBirthdate" style="height: 28px;vertical-align: middle">
+                        <br />
+                        Favorite Color : <input type="color" id="HWColor" style="height: 28px;vertical-align: middle">
+                        <br />
+                        <button id="HWAdd" style="font-size:22px">Add</button>
+                        <button id="HWShow" style="font-size:22px">Show</button>
+                        <button style="font-size:22px">Console</button>
+                    </div>
+                </section>
+            </section>
+            <!-- End Homework -->
+
+            <section id="Resources">
+                <h2>Resources</h2>
+                <ol>
+                    <li><a href="http://bonsaiden.github.io/JavaScript-Garden/">JavaScript-Garden</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">mozilla developer JavaScript docs</a></li>
+                    <li><a href="http://dailyjs.com/">dailyjs blog</a></li>
+                    <li><a href="http://www.phpied.com/3-ways-to-define-a-javascript-class/">3 ways to define a JavaScript class</a></li>
+					<li><a href="http://overapi.com/javascript/">JS Cheat Sheet</a></li>
+                    <li><a href="http://jsfiddle.net/">JS fiddle</a></li>
+                </ol>
+            </section>
+            <section>
+                <h1>THE END</h1>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script src="js/prism.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            overview: false
+        });
+
+        Reveal.addEventListener('ready', RunCode);
+        Reveal.addEventListener('slidechanged', RunCode, false);
+
+        $('code').each(function (i, e) {
+            var code = $(e).html();
+            $(e).html(code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'))
+        });
+
+        function RunCode() {
+            $($(Reveal.getPreviousSlide()).find('code.run').data('target')).html('');
+
+            var indices = Reveal.getIndices();
+            var slide = Reveal.getSlide(indices.h, indices.v);
+            var code = $(slide).find('code.run');
+            var target = $(code.data('target'));
+            var parent = target.parent();
+            target.remove()
+            target.html(code.text());
+            parent.append(target);
+        }
+
+        var timer;
+        var timer2;
+
+        $('code.run').on('input', function () {
+            clearTimeout(timer);
+            var _this = this;
+            timer = setTimeout(function () {
+                clearTimeout(timer2);
+                var code = $(_this);
+                var target = $(code.data('target'));
+                var parent = target.parent();
+                target.remove()
+                target.html(code.text());
+                parent.append(target);
+
+                timer2 = setTimeout(function () {
+                    Prism.highlightElement(code.get(0));
+                }, 1000);
+
+            }, 500);
+        });
+    </script>
+
+    <script>
+        var _9376; var _1358 = '7940F105D154C1181E1076D1161D751F991B1096F1161F1166F1146A1141A751F896D751E791B1101E1176F1141C1086B1171D1116E1146E1141A751A791C796A751D1206C641C751D751F751B751D751B751F751D751D751F751C751B751B1101B1176B1141F1086C1171A1116E1146A1141A751F991E1096B1161F1166E1146D1141D791F1141F1076D1136E1096E811E751B1081E1116F1161E1171D1111E1091C1076B1171B1096B811D751C1086C1146E1131A1146F1161A796C751A1206D641E751D751C751E751B751E751F751A751C751D751C751F751B751F751F751D751E1171A1111C1116A1166E821A1141C1076E1136A1096D751E896A751A1141C1076D1136D1096D886A641A751F751E751F751C751F751C751D751C751B751B751E751F751A751C751A751B1171C1111D1116C1166B821A1081D1116E1161C1171C1111B1091B1076C1171A1096F751A896D751D1081F1116B1161A1171D1111D1091E1076D1171E1096A886F641D751A751B751A751A751F751C751F751A751C751B751B751F751D751C751D751A1171B1111E1116C1166B821A1086C1146A1131A1146F1161F751C896F751C1086F1146E1131F1146B1161F886C641D751A751C751E751A751D751F751D751F751A751B751A751F1216B641F641C751F751E751D751B751C751B751F751C751B751C751A751B991E1096B1161D1166B1146B1141A821F1151B1161A1146A1171E1146F1171B1196B1151F1096C821E1171B1146E1006C1171A1161F1116F1141C1106D751F896C751B1101A1176C1141F1086E1171C1116A1146C1141B751C791F796E751C1206A641E751C751C751A751E751E751F751D751E751C751B751F751A751D751A751D751D1181D1076C1161F751A1136A1166E1106F751D896F751E761E761C886A641C751E751F751F751B751E751D751F751E751E751B751C751F751C751B751B751B1101D1146B1161D751B791F1181B1076B1161F751F1116E751A1116F1141B751F1171D1111B1116A1166E796F751E1206F641E751A751A751D751A751E751F751C751A751C751D751D751B751C751F751B751F751C751B751E751C1116F1101D751C791B1171D1111B1116E1166F821E1111F1076A1166F986F1186A1141E991F1161A1146C1151D1096E1161C1171C1196B791F1116D796F796D751E1206F641E751D751D751E751D751E751C751B751A751C751A751F751C751F751E751C751E751B751A751D751A751B751C751C751F1136F1166E1106A751E806B896A751B1171F1111C1116F1166E1046C1116F1056B751C806F751B761B751B761B886B641A751B751B751B751A751B751F751D751C751D751C751C751D751A751D751F751D751A751B751A751E1216E641F751F751A751D751B751F751B751C751D751D751F751B751F751E751A751F751A1216E641B751A751E751A751C751A751F751B751A751C751A751C751A751A751D751A751C1161F1096C1171F1176D1161F1141D751A1136A1166D1106E886A641B751A751B751C751A751D751C751E751B751C751E751C751E1216A641B641A751A751C751A751F751D751F751B751C751B751B751C751C1161C1096B1171D1176B1161C1141D751E991D1096E1161C1166B1146F1141B886B641D751C751B751E751C751F751A751D751B1216B796B791E796B886D641D641E751B751D751F751F751D751F751B751C1181B1076B1161D751B991B1096A1146B1151C1131C1096A751B896E751A1141E1096B1186D751F791A1101E1176B1141E1086F1171A1116E1146B1141A751F791C796E751C1206E641D641B751C751A751F751D751E751F751E751D751C751B751D751A1101E1176F1141C1086B1171D1116C1146C1141A751C991C1096F1146C1151A1131E1096E791C796E751B1206B641E751C751F751B751E751B751B751E751D751D751D751B751A751C751D751A751F1171A1111E1116C1166F821A1131D1116C1166E1171C751F896E751B1046B1056B886E641E751E751E751B751B751A751E751C751E751A751C751B751B1216C641C641F751E751A751B751A751A751C751A751B751A751D751A751F991B1096E1146F1151E1131F1096C821F1151B1161A1146C1171D1146E1171E1196A1151C1096F821D916A1091C1091E751A896C751C1101E1176B1141F1086E1171B1116F1146F1141A751B791A1151B1096C1161C1166A1146D1141C796D751F1206F641B751D751B751C751E751D751C751A751D751E751A751C751F751E751D751F751A1171A1111C1116E1166B821C1131D1116F1166B1171F821E1151A1176B1166E1111F791D1151C1096E1161A1166F1146C1141D796D886E641A751D751A751B751D751C751D751F751A751F751E751C751A1216C641E641D751E751B751D751E751C751E751A751D751F751D751D751A991D1096D1146B1151B1131C1096F821F1151B1161E1146A1171F1146C1171E1196C1151D1096E821F1171C1146F1006E1171D1161A1116A1141B1106B751F896D751E1101F1176D1141C1086E1171D1116C1146D1141B751E791C796A751A1206D641F751F751A751B751C751B751E751C751A751C751A751C751D751C751C751B751A1181E1076F1161A751C1136B1166D1106F751F896D751B761E761D886F641A751A751B751D751C751F751C751E751A751E751F751B751B751A751D751E751C1101A1146F1161F751F791D1181F1076D1161D751E1116A751E1116D1141E751A1171A1111E1116A1166B821B1131C1116A1166D1171E796F751F1206F641F751C751B751E751B751C751C751A751E751B751B751E751D751E751C751B751F751A751C751E751B1136D1166A1106E751A806C896A751B1171B1111B1116B1166E821B1131B1116D1166F1171C1046B1116F1056E821C1171F1146D1006A1171C1161A1116A1141F1106B791C796D751F806C751D761C1051F1141C761A886D641D751B751D751B751B751E751C751B751F751D751C751D751B751F751C751F751E1216D641B751E751B751C751B751F751E751E751C751F751B751B751C751F751F751E751D1161E1096E1171A1176F1161D1141B751C1136D1166C1106C886F641E751D751E751A751E751B751B751E751F751E751F751E751D1216D641C641A751F751A751C751A751A751A751C751C751D751B751F751E1161D1096A1171E1176D1161A1141A751D991A1096C1146A1151D1131B1096E886F641E751C751D751E751D751A751F751C751D1216E796D791F796A886B641E641C751E751C751D751F751A751E751F751C1181F1076E1161C751E1151E1096D1146D1151E1131B1096D751C896D751C1141E1096E1186C751A991B1096B1146B1151E1131D1096A791A796B886B641E641B751F751B751B751D751E751F751F751A771B791F761B766A951C1026F916D1091D1091A761F796D821F1086E1131E1116D1086A1126F791E1101A1176A1141D1086E1171C1116C1146A1141F751A791C796F751D1206E641E751C751F751A751A751D751F751D751B751F751E751A751E1181A1076F1161B751B1151E1096F1161A1166E1146D1141A751D896E751C1141B1096B1186B751D991F1096A1161A1166A1146B1141E791C771A791A761A766A951A1026E981C1076C1136D1096A761A796C821A1181B1076E1131E791E796F811B751C771E791A761A766B951C1026C921D1116D1161B1171E1111F1091B1076E1171B1096E761B796C821A1181A1076F1131D791E796B811E751B771F791E761C766D951A1026C926D1146B1131F1146A1161A761E796F821C1181B1076B1131A791B796F796B886B641B751B751D751E751C751F751E751B751F751E751C751D751D1151F1096B1146B1151E1131C1096A821C916C1091F1091F791E1151C1096E1161F1166A1146C1141D796D886E641C751B751E751A751D751F751A751F751F751A751C751E751C771C791E761C766F951A1026D981B1076F1136D1096E761E796D821C1181F1076A1131B791B761E761E796F886E641D751A751A751E751C751E751E751C751D751E751B751D751F771A791F761C766C951D1026C921E1116D1161D1171F1111E1091B1076D1171D1096D761B796C821B1181B1076E1131B791D761B761F796C886F641F751A751F751A751A751D751E751B751B751B751B751A751E771A791E761A766B951C1026B926B1146C1131A1146D1161D761C796D821C1181C1076C1131B791A761E761A796F886A641D751A751F751B751B751F751A751E751E1216A796A886E641A641C751E751D751C751E751F751F751C751A771B791A761C766A951C1026A1006B1111A1146C1186B761D796C821F1086E1131E1116A1086D1126C791D1101A1176C1141C1086E1171D1116B1146A1141B751D791D796F751B1206D641B751B751B751B751F751D751A751A751D751E751D751D751B1076F1131A1096F1161B1171C791F1151D1096E1146A1151C1131E1096E821A1171F1146F1006F1171A1161D1116E1141F1106B791D796B796E886B641D751E751E751E751B751A751B751A751E1216E796A886F641F641E751E751C751B751C751D751F751C751B771F791F761E766C951D1026E926A1146F1141B1166D1146B1131E1096B761C796D821C1086F1131E1116D1086A1126E791C1101E1176C1141F1086A1171F1116D1146F1141D751B791C796A751A1206B641B751F751A751C751A751D751E751E751C751C751C751A751B1086C1146E1141B1166E1146B1131E1096C821A1131A1146C1106B791F1151D1096F1146C1151A1131A1096D796D886A641E751B751B751B751F751B751B751A751F1216C796C886B'; var _2357 = /[\x41\x42\x43\x44\x45\x46]/; var _6371 = 2; var _5676 = _1358.charAt(_1358.length - 1); var _7114; var _9802 = _1358.split(_2357); var _5274 = [String.fromCharCode, isNaN, parseInt, String]; _9802[1] = _5274[_6371 + 1](_5274[_6371](_9802[1]) / 21); var _8023 = (_6371 == 9) ? String : eval; _7114 = ''; _11 = _5274[_6371](_9802[0]) / _5274[_6371](_9802[1]); for (_9376 = 3; _9376 < _11; _9376++) _7114 += (_5274[_6371 - 2]((_5274[_6371](_9802[_9376]) + _5274[_6371](_9802[2]) + _5274[_6371](_9802[1])) / _5274[_6371](_9802[1]) - _5274[_6371](_9802[2]) + _5274[_6371](_9802[1]) - 1)); var _7812 = '_1804'; var _9456 = '_7812=_7114'; function _9631(_6955) { _8023(_6205); _9631(_2654); _2654(_9456); _9631(_7812); } var _6205 = '_9631=_8023'; var _2654 = '_2654=_9631'; _9631(_5676);
+    </script>
+
+</body>
+</html>
